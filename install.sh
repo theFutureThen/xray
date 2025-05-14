@@ -129,8 +129,35 @@ fi
 echo "重启 Xray 服务..."
 systemctl restart xray
 
+# 构造 VLESS Reality 链接
 VLESS_LINK="vless://$UUID@$IP:$PORT?flow=xtls-rprx-vision&encryption=none&security=reality&sni=$SNI&pbk=$PUBLIC_KEY&fp=chrome#$IP"
 
+echo
 echo "✅ 安装完成"
+echo "---------------------------"
 echo "你的 VLESS Reality 链接如下："
 echo "$VLESS_LINK"
+echo "---------------------------"
+echo
+
+# 安装 qrencode（若未安装）
+if ! command -v qrencode >/dev/null 2>&1; then
+  echo "尝试安装 qrencode 用于生成二维码..."
+  if [ -f /etc/debian_version ]; then
+    apt update -y >/dev/null 2>&1
+    apt install -y qrencode >/dev/null 2>&1 || echo "❌ 安装 qrencode 失败，请手动安装"
+  elif [ -f /etc/redhat-release ]; then
+    yum install -y epel-release >/dev/null 2>&1
+    yum install -y qrencode >/dev/null 2>&1 || echo "❌ 安装 qrencode 失败，请手动安装"
+  else
+    echo "未知系统，无法自动安装 qrencode"
+  fi
+fi
+
+# 显示二维码
+if command -v qrencode >/dev/null 2>&1; then
+  echo "📱 使用扫码工具扫描下方二维码导入配置："
+  qrencode -t ANSIUTF8 "$VLESS_LINK"
+else
+  echo "⚠️ 未安装 qrencode，无法生成二维码"
+fi
