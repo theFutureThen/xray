@@ -128,6 +128,20 @@ fi
 echo -e "${GREEN}==> 重启 Xray 服务...${RESET}"
 systemctl restart xray
 
+# 启用 BBR 加速
+echo -e "${CYAN}==> 启用 BBR 加速...${RESET}"
+# 检查内核版本，只有 4.9 及以上版本支持 BBR
+KERNEL_VERSION=$(uname -r)
+if [[ $(echo "$KERNEL_VERSION" | cut -d '.' -f 1) -ge 4 && $(echo "$KERNEL_VERSION" | cut -d '.' -f 2) -ge 9 ]]; then
+  # 启用 BBR
+  echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+  echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+  sysctl -p >/dev/null 2>&1
+  echo -e "${GREEN}BBR 已成功启用！${RESET}"
+else
+  echo -e "${RED}BBR 不支持当前内核版本。${RESET}"
+fi
+
 # 构造链接
 VLESS_LINK="vless://$UUID@$IP:$PORT?flow=xtls-rprx-vision&encryption=none&security=reality&sni=$SNI&pbk=$PUBLIC_KEY&fp=chrome#$IP"
 
