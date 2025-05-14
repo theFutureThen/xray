@@ -154,7 +154,7 @@ echo
 # 输出二维码
 if command -v qrencode >/dev/null 2>&1; then
   echo -e "${BLUE}📱 扫码导入配置：${RESET}"
-  qrencode -t ANSIUTF8  -s 1 "$VLESS_LINK"
+  qrencode -t ANSIUTF8 "$VLESS_LINK"
 else
   echo -e "${YELLOW}⚠️ 未安装 qrencode，无法生成二维码${RESET}"
 fi
