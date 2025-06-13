@@ -1,31 +1,21 @@
 # 【超详细】十分钟，小白也能科学上网（Vultr部署VPS + 启动Xray服务 + 客户端使用）
+
 > 教您如何在 VPS 上部署一个科学上网服务，安全、快速，还能扫码直接使用！
+>
 > 不懂代码？不懂 Linux？没关系！跟着我一步一步来就行！
 
+> 教程包括：Vultr部署VPS + 启动Xray服务 + 客户端使用
+> 
 > 技术点：[xray](https://github.com/XTLS/Xray-core) + [reality](https://github.com/XTLS/REALITY)
+> 
 > 服务器：[Vultr](https://www.vultr.com/?ref=7039524)
 
-## 准备 VPS（国外服务器）（约 6 分钟）
+## ⌛️ 准备 VPS（国外服务器）（约 5 分钟）
 
 > 注册 2 分钟，付费 0.5 分钟，部署&等待 2.5 分钟
 > 
 
-在开始之前，您需要准备一台国外 VPS。如果没有则需要购买国外 VPS，推荐 [Vultr](https://www.vultr.com/?ref=7039524)，可以按小时计费。*[点我消费\$100送\$300（限时活动）](https://www.vultr.com/?ref=7039524)*
-
-#### 付费
-
-> 支持支付宝，目前最低充值`$10`
-
-![](/screenshot/pay.png)
-
-
-#### 部署（以 debian 为例）
-
-> 服务器最低消费 `$3.5/月`，连接设备数量不限
-
-注意：选择带 ipv4 的服务器
-
-![](/screenshot/delpoy_0.png)![](/screenshot/delpoy_1.png)![](/screenshot/delpoy_2.png)![](/screenshot/delpoy_3.png)![](/screenshot/delpoy_4.png)
+在开始之前，您需要准备一台国外 VPS。如果没有则需要购买国外 VPS，推荐 [Vultr](https://www.vultr.com/?ref=7039524)，可以按小时计费。
 
 ---
 
@@ -52,9 +42,9 @@ ssh root@45.77.96.59
 复制下面这段命令并粘贴，按回车执行：
 
 ```bash
-bash <(curl -Ls https://raw.githubusercontent.com/theFutureThen/xray/refs/heads/main/install.sh)
+bash <(curl -Ls install.sh)
 ```
-![](/screenshot/terminal_0.png)
+![](screenshot/terminal_0.png)
 
 ---
 
@@ -70,11 +60,11 @@ bash <(curl -Ls https://raw.githubusercontent.com/theFutureThen/xray/refs/heads/
 
 示例截图如下：
 
-![](/screenshot/terminal_1.png)
+![](screenshot/terminal_1.png)
 
 ---
 
-## 使用——下载客户端&启动（约 2 分钟）
+## 🏁 使用——下载客户端&启动（约 2 分钟）
 
 推荐使用 **[v2rayN（Windows/Mac OS）](https://github.com/2dust/v2rayn/releases)** 或 **[Shadowrocket（iOS）](https://apps.apple.com/us/app/shadowrocket/id932747118)**、**[v2rayNG（安卓）](https://github.com/2dust/v2rayNG/releases)**
 
@@ -96,11 +86,20 @@ sudo xattr -r -d com.apple.quarantine  /Applications/v2rayN.app
 
 ## ❓ 常见问题
 
-**Q1：我从来没用过 Linux，这看得懂吗？**
+**Q1：为什么不选择 ss/v2ray/sing-box 等？**
+
+A: xray 目前是最佳的选择，预计未来 sing-box 将会是最佳选择。
+
+- ss 目前很容易被识别
+- xray 是 v2ray 的升级版。相比 V2Ray 更现代，社区更活跃。支持最新的抗干扰手段，如 XTLS + Reality。
+- sing-box 目前不稳定，迭代频繁，且目前官方客户端开发不完善。主要还需要 v2ray 相关的客户端。
+
+
+**Q2：我从来没用过 Linux，这看得懂吗？**
 
 A：教程写得就是给您这样的朋友看的，复制粘贴命令就能跑，不需要您写代码！
 
-**Q2：脚本包括哪些功能？**
+**Q3：脚本包括哪些功能？**
 
 A：包括以下功能：
 - 安装 Xray 主程序
@@ -110,7 +109,7 @@ A：包括以下功能：
 - 启用 BBR 加速（让网络更快）
 - 最后生成一个连接二维码，手机一扫就能用！
 
-**Q3：可以不用脚本自己动手么？**
+**Q4：可以不用脚本自己动手么？**
 
 A：当然可以，如果您是专业人士，可以参考以下步骤（上述脚本的核心）：
 ```
@@ -203,21 +202,40 @@ vless://471aff3e-215a-4d7e-9cef-9acf96e5df86@45.77.96.59:1225?flow=xtls-rprx-vis
 ```
 
 
-**Q4：能不能卸载？**
+**Q5：能不能卸载？**
 
-可以。您只需运行：
+A：可以。您只需运行：
 
 ```bash
 bash /usr/local/bin/xray uninstall
 ```
 
-**Q5: 写作的动力？**
+**Q6: vultr 怎么操作？**
 
-推广 vultr 获取点服务商的佣金
+A：提供了详细的截图，辅助大家进行操作。
+
+#### 付费
+
+> 支持支付宝，目前最低充值`$10`
+
+![](screenshot/pay.png)
+
+
+#### 部署（以 debian 为例）
+
+> 服务器最低消费 `$3.5/月`，连接设备数量不限
+
+注意：选择带 ipv4 的服务器
+
+![](screenshot/delpoy_0.png)![](screenshot/delpoy_1.png)![](screenshot/delpoy_2.png)![](screenshot/delpoy_3.png)![](screenshot/delpoy_4.png)
+
+**Q7: 写作的动力？**
+
+A：推广 vultr 获取点服务商的佣金
 
 |[链接1：您消费\$10，送我\$10](https://www.vultr.com/?ref=7039524)|[链接2（限时有效）：您消费\$100，送您\$300，送我\$100](https://www.vultr.com/?ref=9643303-9J)|
 |-|-|
-|![](/screenshot/refer_1.png#pic_center=600*400)|![](/screenshot/refer_2.png#pic_center=600*400)|
+|![](screenshot/refer_1.png#pic_center=600*400)|![](screenshot/refer_2.png#pic_center=600*400)|
 
 ---
 
