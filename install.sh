@@ -34,8 +34,8 @@ UUID=$(xray uuid)
 
 echo -e "${GREEN}==> 生成 Reality 密钥对...${RESET}"
 KEY_OUTPUT=$(xray x25519)
-PRIVATE_KEY=$(echo "$KEY_OUTPUT" | grep "Private key" | awk '{print $3}')
-PUBLIC_KEY=$(echo "$KEY_OUTPUT" | grep "Public key" | awk '{print $3}')
+PRIVATE_KEY=$(echo "$KEY_OUTPUT" | sed -n 's/^PrivateKey: //p')
+PUBLIC_KEY=$(echo "$KEY_OUTPUT" | sed -n 's/^Password (PublicKey): //p')
 
 IP=$(curl -s https://api.ipify.org)
 
