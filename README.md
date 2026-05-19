@@ -42,7 +42,7 @@ ssh root@45.77.96.59
 复制下面这段命令并粘贴，按回车执行：
 
 ```bash
-bash <(curl -Ls install.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/theFutureThen/xray/refs/heads/main/install.sh)
 ```
 ![](screenshot/terminal_0.png)
 
